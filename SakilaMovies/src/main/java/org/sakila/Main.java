@@ -1,9 +1,11 @@
 package org.sakila;
 
+import java.awt.*;
 import java.sql.*;
-import java.sql.Date;
 import java.util.Scanner;
+import java.util.List;
 
+import org.sakila.DataManager;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 public class Main {
@@ -12,6 +14,16 @@ public class Main {
         System.out.println("Please enter the last name of an actor you like");
         String lastName = scanner.nextLine();
         getLastName(lastName);
+
+        DataManager dm = new DataManager();
+        List<Actor> actors = dm.searchActorsByName(lastName);
+        // actors.forEach(System.out::println);
+
+        System.out.println("Please enter an actor id to see movies: ");
+        int actorId = scanner.nextInt();
+
+        List<Film> films = dm.getMoviesByActorId(actorId);
+        films.forEach(System.out::println);
 
         System.out.println("Please enter the first name of an actor you like");
         String firstName = scanner.nextLine();
